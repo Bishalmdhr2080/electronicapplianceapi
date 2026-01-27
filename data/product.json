@@ -1,0 +1,136 @@
+[
+    {
+        "id": 1,
+        "name": "iPhone 15",
+        "brand": "Apple",
+        "price": 145000
+    },
+    {
+        "id": 2,
+        "name": "iPhone 14",
+        "brand": "Apple",
+        "price": 125000
+    },
+    {
+        "id": 3,
+        "name": "Galaxy S24",
+        "brand": "Samsung",
+        "price": 132000
+    },
+    {
+        "id": 4,
+        "name": "Galaxy S23 FE",
+        "brand": "Samsung",
+        "price": 89000
+    },
+    {
+        "id": 5,
+        "name": "Pixel 8",
+        "brand": "Google",
+        "price": 118000
+    },
+    {
+        "id": 6,
+        "name": "Pixel 7a",
+        "brand": "Google",
+        "price": 72000
+    },
+    {
+        "id": 7,
+        "name": "Redmi Note 13",
+        "brand": "Xiaomi",
+        "price": 32000
+    },
+    {
+        "id": 8,
+        "name": "Redmi 12",
+        "brand": "Xiaomi",
+        "price": 22000
+    },
+    {
+        "id": 9,
+        "name": "OnePlus 12",
+        "brand": "OnePlus",
+        "price": 128000
+    },
+    {
+        "id": 10,
+        "name": "OnePlus Nord CE 3",
+        "brand": "OnePlus",
+        "price": 42000
+    },
+    {
+        "id": 11,
+        "name": "Realme GT Neo 5",
+        "brand": "Realme",
+        "price": 48000
+    },
+    {
+        "id": 12,
+        "name": "Realme C55",
+        "brand": "Realme",
+        "price": 21000
+    },
+    {
+        "id": 13,
+        "name": "Vivo V29",
+        "brand": "Vivo",
+        "price": 49000
+    },
+    {
+        "id": 14,
+        "name": "Vivo Y27",
+        "brand": "Vivo",
+        "price": 23000
+    },
+    {
+        "id": 15,
+        "name": "Oppo Reno 10",
+        "brand": "Oppo",
+        "price": 52000
+    },
+    {
+        "id": 16,
+        "name": "Oppo A78",
+        "brand": "Oppo",
+        "price": 26000
+    },
+    {
+        "id": 17,
+        "name": "Nokia G42",
+        "brand": "Nokia",
+        "price": 28000
+    },
+    {
+        "id": 18,
+        "name": "Nokia C32",
+        "brand": "Nokia",
+        "price": 18000
+    },
+    {
+        "id": 19,
+        "name": "Infinix Zero 30",
+        "brand": "Infinix",
+        "price": 30000
+    },
+    {
+        "id": 20,
+        "name": "Tecno Camon 20",
+        "brand": "Tecno",
+        "price": 27000
+    },
+    {
+        "id": 21,
+        "name": "dairymilk",
+        "brand": "dairymilk",
+        "category": "chocolate",
+        "price": 200
+    },
+    {
+        "id": 22,
+        "name": "kitkat",
+        "brand": "dairymilk",
+        "category": "chocolate",
+        "price": 50
+    }
+]

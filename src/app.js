@@ -1,0 +1,104 @@
+import bodyParser from "body-parser";
+import express from "express";
+import productRouter from "./routes/product.route.js";
+import connectDB from "./config/database.js";
+
+const app = express();
+
+connectDB();
+
+app.use(bodyParser.json())
+
+app.use("/api/products", productRouter); // 👈 middleware should be before listen
+
+app.listen(5000, () => {
+    console.log("Server is running......");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import express from "express";
+// import fs from 'fs';
+// import config from "./config/config.js";
+// import productRouter from "./routes/product.route.js"
+
+
+
+
+// const app = express();
+// app.listen(config.port, () => {
+//     console.log(`Server is running at ${config.port}`)
+// })
+
+
+// // routes
+// app.get("/home", getUserController)
+
+// // controller
+// function getUserController(req, res) {
+//     const userData = getUserServices()
+//     res.json(userData)
+// }
+
+// // services
+// function getUserServices() {
+//     const response = fs.readFileSync("data/data.json", "utf8")
+//     const data = JSON.parse(response);
+//     return data.map((item) => ({ name: item.name, email: item.email, usernaem: item.username }))
+
+// }
+
+// app.use("/", productRouter)

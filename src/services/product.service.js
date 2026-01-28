@@ -29,6 +29,7 @@ const deletProductById = async (id) => {
 }
 
 const updateProduct = async (id, data) => {
+    await getProductById(id)
     return await Product.findByIdAndUpdate(id, data, { new: true })
 }
 

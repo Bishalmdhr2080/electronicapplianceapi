@@ -1,30 +1,38 @@
-import { min } from "date-fns"
+
 import mongoose, { mongo } from "mongoose"
 
 const productSchema = mongoose.Schema({
+
     name: {
         type: String,
         required: [true, "product name is required"]
     },
+
     brand: String,
+
     category: String,
+
     price: {
         type: Number,
         required: [true, "Price is required"],
         min: [1, "Number should be not less than 0"]
 
     },
+
     stock: {
         type: Number,
         min: 1,
         default: 0
 
     },
+
     imageUrls: [String],
+
     createdAt: {
         type: Date,
         default: Date.now(),
     }
+
 })
 
 const model = mongoose.model("Product", productSchema)

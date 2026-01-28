@@ -58,7 +58,6 @@ const updateProduct = async (req, res) => {
 
 
 const createProduct = async (req, res) => {
-
     try {
         const bodyData = req.body
 
@@ -66,7 +65,7 @@ const createProduct = async (req, res) => {
 
         res.status(201).send(createdPorduct)
     } catch (error) {
-        res.status(400).send(error?.message)
+        res.status(error.status).send(error?.message)
     }
 
 

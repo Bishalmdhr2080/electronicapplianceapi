@@ -1,7 +1,8 @@
 import bodyParser from "body-parser";
 import express from "express";
-import productRouter from "./routes/product.route.js";
 import connectDB from "./config/database.js";
+import productRouter from "./routes/product.route.js";
+import userRouter from "./routes/user.route.js";
 
 const app = express();
 
@@ -9,7 +10,9 @@ connectDB();
 
 app.use(bodyParser.json())
 
-app.use("/api/products", productRouter); // 👈 middleware should be before listen
+app.use("/api/products", productRouter);
+
+app.use("/api/users", userRouter);
 
 app.listen(5000, () => {
     console.log("Server is running......");

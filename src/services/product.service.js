@@ -9,7 +9,7 @@ const getProducts = async () => {
         message: "product not found",
         status: 404
     }
-
+    console.log(product);
     return product
 }
 
@@ -33,10 +33,19 @@ const updateProduct = async (id, data) => {
     return await Product.findByIdAndUpdate(id, data, { new: true })
 }
 
+const createProduct = async (data) => {
+    if (!data) throw {
+        message: "Product not found",
+        status: 404,
+    }
+    return await Product.create(data)
+}
+
 
 
 export default {
     getProducts,
+    createProduct,
     getProductById,
     deletProductById,
     updateProduct

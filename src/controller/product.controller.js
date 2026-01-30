@@ -58,17 +58,13 @@ const updateProduct = async (req, res) => {
 
 
 const createProduct = async (req, res) => {
+    const data = req.body
     try {
-        const bodyData = req.body
-
-        const createdPorduct = await productService.createProduct(bodyData)
-
-        res.status(201).send(createdPorduct)
+        const createProduct = await productService.createProduct(data)
+        res.status(201).send(createProduct)
     } catch (error) {
-        res.status(error.status).send(error?.message)
+        res.status(400).send(error?.message)
     }
-
-
 };
 
 

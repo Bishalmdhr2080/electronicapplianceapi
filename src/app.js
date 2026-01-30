@@ -1,8 +1,9 @@
 import bodyParser from "body-parser";
 import express from "express";
 import connectDB from "./config/database.js";
-import productRouter from "./routes/product.route.js";
-import userRouter from "./routes/user.route.js";
+import productRoute from "./routes/product.route.js";
+import userRoute from "./routes/user.route.js";
+import authRoute from "./routes/auth.route.js";
 
 const app = express();
 
@@ -10,9 +11,12 @@ connectDB();
 
 app.use(bodyParser.json())
 
-app.use("/api/products", productRouter);
+app.use("/api/products", productRoute);
 
-app.use("/api/users", userRouter);
+app.use("/api/users", userRoute);
+
+app.use("/api/auth", authRoute);
+
 
 app.listen(5000, () => {
     console.log("Server is running......");
@@ -76,7 +80,7 @@ app.listen(5000, () => {
 // import express from "express";
 // import fs from 'fs';
 // import config from "./config/config.js";
-// import productRouter from "./routes/product.route.js"
+// import productRoute from "./routes/product.route.js"
 
 
 
@@ -104,4 +108,4 @@ app.listen(5000, () => {
 
 // }
 
-// app.use("/", productRouter)
+// app.use("/", productRoute)

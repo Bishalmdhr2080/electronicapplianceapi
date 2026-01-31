@@ -3,9 +3,16 @@ import authService from "../services/auth.service.js"
 
 
 
-const login = (req, res) => {
-    authService.login()
-    res.send("login sucessful")
+const login = async (req, res) => {
+    const data = req.body;
+    try {
+        const user = await authService.login(data)
+        res.json(user)
+    } catch (err) {
+        res.status(err.status || 500).send(err.message)
+
+    }
+
 
 }
 
@@ -15,8 +22,8 @@ const register = async (req, res) => {
     try {
         const registeredUser = await authService.register(data)
         res.json(registeredUser)
-    } catch (err) {
-        res.status(err.status || 500).send(err.message)
+    } catch (error) {
+        res.status(error.status || 500).send(error.message)
 
     }
 }

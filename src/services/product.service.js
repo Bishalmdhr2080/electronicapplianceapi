@@ -9,7 +9,6 @@ const getProducts = async () => {
         message: "product not found",
         status: 404
     }
-    console.log(product);
     return product
 }
 

@@ -2,7 +2,6 @@
 import User from "../models/User.js"
 
 const createUser = async (data) => {
-    console.log(data);
     if (!data) throw {
         message: "User not found",
         status: 401,
@@ -11,6 +10,17 @@ const createUser = async (data) => {
 }
 
 
+const getUser = async () => {
+    const user = await User.find()
+
+    if (!user) throw {
+        status: 404,
+        message: "product not found"
+    }
+    return user
+}
 
 
-export default { createUser };
+
+
+export default { createUser, getUser };

@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        vaidate: {
+        validate: {
             validator: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
             message: "invalid email",
         },

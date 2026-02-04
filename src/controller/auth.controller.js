@@ -3,9 +3,6 @@ import { createJWT } from "../utils/jwts.js";
 
 
 const login = async (req, res) => {
-
-
-
     try {
         const data = await authService.login(req.body)
 

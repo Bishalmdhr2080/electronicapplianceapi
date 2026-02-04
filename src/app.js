@@ -1,12 +1,14 @@
 import bodyParser from "body-parser";
 import express from "express";
+import config from "./config/config.js";
 import connectDB from "./config/database.js";
+import auth from "./middleware/auth.js";
+import logger from "./middleware/logger.js";
+import authRoute from "./routes/auth.route.js";
 import productRoute from "./routes/product.route.js";
 import userRoute from "./routes/user.route.js";
-import authRoute from "./routes/auth.route.js";
-import config from "./config/config.js";
-import logger from "./middleware/logger.js";
-import auth from "./middleware/auth.js";
+import roleBaseAuth from "./middleware/roleBasedAuth.js";
+import { ROLE_ADMIN } from "./constants/roles.js";
 
 const app = express();
 
@@ -18,7 +20,10 @@ app.use(logger)
 
 app.use("/api/products", productRoute);
 
-app.use("/api/users", userRoute);
+app.use("/api/users",
+    auth,
+    roleBaseAuth(ROLE_ADMIN),
+    userRoute);
 
 app.use("/api/auth", authRoute);
 

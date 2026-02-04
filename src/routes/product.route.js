@@ -1,6 +1,9 @@
 import express from "express";
 import productController from "../controller/product.controller.js";
 import auth from "../middleware/auth.js";
+import roleBaseAuth from "../middleware/roleBasedAuth.js";
+import { ROLE_ADMIN } from "../constants/roles.js";
+
 
 
 const router = express.Router();
@@ -13,8 +16,10 @@ router.get("/:id", productController.getProductById);
 
 router.put("/:id", auth, productController.updateProduct)
 
-router.delete("/:id", auth, productController.deletProductById)
-
+router.delete("/:id",
+    auth,
+    roleBaseAuth(ROLE_ADMIN),
+    productController.deletProductById)
 
 
 export default router

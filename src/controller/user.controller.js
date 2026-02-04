@@ -42,7 +42,10 @@ const updateUserById = async (req, res) => {
     try {
         const updatedUser = await userService.updateUserById(id, data);
 
-        res.json({ message: "User updated ", data: updatedUser })
+        res.status(201).json({
+            message: "User updated ",
+            data: updatedUser
+        })
     } catch (error) {
         res.status(error.status || 404).send(error?.message)
 

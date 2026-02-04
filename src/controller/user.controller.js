@@ -23,4 +23,46 @@ const getUser = async (req, res) => {
         res.status(error.status || 500).send(error?.message)
     }
 }
-export default { createUser, getUser };
+
+const getUserById = async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const data = await userService.getUserById(id);
+
+        res.json(data)
+    } catch (error) {
+        res.status(error.status || 500).send(error?.message)
+    }
+}
+
+const updateUserById = async (req, res) => {
+    const id = req.params.id;
+    const data = req.body
+    try {
+        const updatedUser = await userService.updateUserById(id, data);
+
+        res.json({ message: "User updated ", data: updatedUser })
+    } catch (error) {
+        res.status(error.status || 404).send(error?.message)
+
+    }
+}
+
+
+const deletUserById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await userService.deletUserById(id);
+
+        res.json({ message: "User deleted ", id })
+    } catch (error) {
+        res.status(error.status || 404).send(error?.message)
+
+    }
+
+
+}
+
+
+export default { createUser, getUser, getUserById, updateUserById, deletUserById };

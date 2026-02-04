@@ -1,14 +1,19 @@
 
+
 import Product from "../models/Product.js"
 
 
 const getProducts = async () => {
     const product = await Product.find()
 
-    if (!product) throw {
-        message: "product not found",
-        status: 404
+    if (!product) {
+        const error = new Error("product not found")
+        error.status = 404;
+        throw error;
     }
+
+
+
     return product
 }
 

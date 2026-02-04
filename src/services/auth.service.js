@@ -1,9 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
-import createJWT from "../utils/jwts.js";
 
 const register = async (data) => {
-    const user = await User.findOne({ email: data.email });
+    const user = await User.findOne({ $or: [{ email: data?.email }, { phone: data?.phone }] });
 
     if (user) throw {
         status: 409,
@@ -17,18 +16,28 @@ const register = async (data) => {
 
     const hashedPassword = await bcrypt.hash(data.password, salt);
 
-    return await User.create({
+    const createdUser = await User.create({
         name: data.name,
         email: data.email,
         password: hashedPassword,
         phone: data.phone,
         address: data.address,
     });
+
+    return {
+        _id: createdUser._id,
+        name: createdUser.name,
+        email: createdUser.email,
+        phone: createdUser.phone,
+        address: createdUser.address,
+        roles: createdUser.roles,
+        isActive: createdUser.isActive,
+    }
 };
 
 const login = async (data) => {
     const user = await User.findOne({ $or: [{ email: data?.email }, { phone: data?.phone }] });
-
+    console.log(user);
     if (!user) {
         const err = new Error("Invalid email or password");
         err.status = 401;
@@ -42,12 +51,16 @@ const login = async (data) => {
         err.status = 401;
         throw err;
     }
-    const token = createJWT(user);
 
-    console.log(token)
-
-
-    return user;
+    return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        roles: user.roles,
+        isActive: user.isActive,
+    };
 };
 
 export default { register, login };

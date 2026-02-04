@@ -5,7 +5,16 @@ const router = express.Router()
 
 router.post('/', userController.createUser)
 
-router.get('/user', userController.getUser)
+router.get('/', userController.getUser)
+
+router.get('/:id', userController.getUserById)
+
+router.put('/:id', userController.updateUserById)
+
+router.delete('/:id', userController.deletUserById)
+
+
+
 
 
 

@@ -4,6 +4,9 @@ import connectDB from "./config/database.js";
 import productRoute from "./routes/product.route.js";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
+import config from "./config/config.js";
+import logger from "./middleware/logger.js";
+import auth from "./middleware/auth.js";
 
 const app = express();
 
@@ -11,11 +14,26 @@ connectDB();
 
 app.use(bodyParser.json())
 
+app.use(logger)
+
 app.use("/api/products", productRoute);
 
 app.use("/api/users", userRoute);
 
 app.use("/api/auth", authRoute);
+
+app.get("/", (req, res) => {
+    res.json({
+        name: config.name,
+        port: config.port,
+        version: config.version,
+        status: "OK"
+    })
+})
+
+
+
+
 
 
 app.listen(5000, () => {

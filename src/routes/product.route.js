@@ -1,18 +1,19 @@
 import express from "express";
 import productController from "../controller/product.controller.js";
+import auth from "../middleware/auth.js";
 
 
 const router = express.Router();
+
+router.post("/", auth, productController.createProduct)
 
 router.get("/", productController.getProducts);
 
 router.get("/:id", productController.getProductById);
 
-router.post("/", productController.createProduct)
+router.put("/:id", auth, productController.updateProduct)
 
-router.delete("/:id", productController.deletProductById)
-
-router.put("/:id", productController.updateProduct)
+router.delete("/:id", auth, productController.deletProductById)
 
 
 

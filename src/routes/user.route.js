@@ -1,9 +1,11 @@
 import express from "express"
 import userController from '../controller/user.controller.js'
+import { validate } from "../middleware/validator.js"
+import { userSchema } from "../lib/schemas/user.js"
 
 const router = express.Router()
 
-router.post('/', userController.createUser)
+router.post('/', validate(userSchema), userController.createUser)
 
 router.get('/', userController.getUser)
 

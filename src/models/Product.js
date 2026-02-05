@@ -16,14 +16,12 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: [true, "Price is required"],
         min: [1, "Number should be not less than 0"]
-
     },
 
     stock: {
         type: Number,
         min: 1,
         default: 0
-
     },
 
     imageUrls: [String],

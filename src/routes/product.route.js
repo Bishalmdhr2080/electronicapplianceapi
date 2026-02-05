@@ -2,19 +2,27 @@ import express from "express";
 import productController from "../controller/product.controller.js";
 import auth from "../middleware/auth.js";
 import roleBaseAuth from "../middleware/roleBasedAuth.js";
-import { ROLE_ADMIN } from "../constants/roles.js";
+import { ROLE_ADMIN, ROLE_MERCHANT, ROLE_USER } from "../constants/roles.js";
+import { productSchema } from "../lib/schemas/product.js";
+import { validate } from "../middleware/validator.js";
 
 
 
 const router = express.Router();
 
-router.post("/", auth, productController.createProduct)
+router.post("/",
+    auth,
+    roleBaseAuth(ROLE_MERCHANT),
+    validate(productSchema),
+    productController.createProduct)
 
 router.get("/", productController.getProducts);
 
 router.get("/:id", productController.getProductById);
 
-router.put("/:id", auth, productController.updateProduct)
+router.put("/:id",
+    auth,
+    productController.updateProduct)
 
 router.delete("/:id",
     auth,

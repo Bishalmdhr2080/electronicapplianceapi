@@ -1,5 +1,6 @@
 
 import mongoose, { mongo } from "mongoose"
+import { required } from "zod/mini"
 
 const productSchema = mongoose.Schema({
 
@@ -29,7 +30,17 @@ const productSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now(),
+    },
+
+    createdBy: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: [true, "Createdby user is required"]
+    },
+    description: {
+        type: String,
     }
+
 
 })
 

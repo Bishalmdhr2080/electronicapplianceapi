@@ -1,13 +1,13 @@
+import auth from "./middleware/auth.js";
+import authRoute from "./routes/auth.route.js";
 import bodyParser from "body-parser";
-import express from "express";
 import config from "./config/config.js";
 import connectDB from "./config/database.js";
-import auth from "./middleware/auth.js";
+import express from "express";
 import logger from "./middleware/logger.js";
-import authRoute from "./routes/auth.route.js";
 import productRoute from "./routes/product.route.js";
-import userRoute from "./routes/user.route.js";
 import roleBaseAuth from "./middleware/roleBasedAuth.js";
+import userRoute from "./routes/user.route.js";
 import { ROLE_ADMIN } from "./constants/roles.js";
 
 const app = express();

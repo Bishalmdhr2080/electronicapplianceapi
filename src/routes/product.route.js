@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/",
     auth,
-    roleBaseAuth(ROLE_MERCHANT),
+    roleBaseAuth(ROLE_MERCHANT),//(ROLE_MERCHANT,ROLE_ADMIN)
     validate(productSchema),
     productController.createProduct)
 

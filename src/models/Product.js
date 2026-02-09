@@ -1,6 +1,5 @@
 
-import mongoose, { mongo } from "mongoose"
-import { required } from "zod/mini"
+import mongoose from "mongoose"
 
 const productSchema = mongoose.Schema({
 

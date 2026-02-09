@@ -5,12 +5,10 @@ import {
     ORDER_STATUS_DELIVERY,
     ORDER_STATUS_PENDING,
     ORDER_STATUS_SHIPPED
-} from "../constants/order";
-import { required } from "zod/mini";
-import { min } from "date-fns";
+} from "../constants/order.js";
 
 
-const orderSchema = mongoose.Schema({
+const orderSchema = new mongoose.Schema({
     status: {
         type: String,
         default: ORDER_STATUS_PENDING,
@@ -39,15 +37,38 @@ const orderSchema = mongoose.Schema({
 
     totalPrice: {
         type: Number,
-        min: 1,
         required: [true, "Price Amount is Required"]
     },
     orderNumber: {
         type: Number,
-        min: 1,
         required: [true, "Order Number is required"]
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+        immutable: true,
+    },
+
+    orderItems: [{
+        products: {
+            type: mongoose.Schema.ObjectId,
+            required: [true, "User is required"],
+            ref: "Product",
+        },
+        quantity: {
+            type: Number,
+            default: 1
+        },
+        payment: {
+            type: mongoose.Schema.ObjectId,
+            required: [true, "Payment is required"],
+            ref: "Payment"
+        }
+
+    }]
 
 })
 
-export default orderSchema
+const model = mongoose.model("Order", orderSchema)
+
+export default model

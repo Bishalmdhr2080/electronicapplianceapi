@@ -6,6 +6,7 @@ import connectDB from "./config/database.js";
 import express from "express";
 import logger from "./middleware/logger.js";
 import productRoute from "./routes/product.route.js";
+import orderRoute from "./routes/order.route.js";
 import roleBaseAuth from "./middleware/roleBasedAuth.js";
 import userRoute from "./routes/user.route.js";
 import { ROLE_ADMIN } from "./constants/roles.js";
@@ -19,6 +20,9 @@ app.use(bodyParser.json())
 app.use(logger)
 
 app.use("/api/products", productRoute);
+
+app.use("/api/orders", orderRoute);
+
 
 app.use("/api/users",
     auth,

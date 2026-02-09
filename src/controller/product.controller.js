@@ -58,7 +58,6 @@ const updateProduct = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-    console.log(req.user)
 
     const data = req.body
 

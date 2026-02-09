@@ -1,4 +1,3 @@
-
 import User from "../models/User.js"
 
 const createUser = async (data) => {
@@ -16,8 +15,9 @@ const getUser = async () => {
     if (!user) throw {
         status: 404,
 
-        message: "product not found"
+        message: "USER not found"
     }
+
     return user
 }
 

@@ -6,7 +6,7 @@ import { ROLE_ADMIN, ROLE_MERCHANT, ROLE_USER } from "../../constants/roles.js";
 const addressSchema = z.object({
     city: z.string().optional(),
     province: z.string().optional(),
-    country: z.string()
+    country: z.string().optional()
 
 })
 
@@ -19,7 +19,7 @@ const userSchema = z.object({
         .max(10, "Phone number must be at most 10 digits"),
     address: addressSchema,
     isActive: z.boolean().optional(),
-    roles: z.array(z.enum(["ROLE_ADMIN", "ROLE_USER", "ROLE_MERCHANT"])).optional(),
+    roles: z.array(z.enum([ROLE_ADMIN, ROLE_USER, ROLE_MERCHANT])).optional(),
     profileImageUrl: z.string().optional()
 });
 

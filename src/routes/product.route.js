@@ -4,7 +4,7 @@ import auth from "../middleware/auth.js";
 import roleBaseAuth from "../middleware/roleBasedAuth.js";
 import { ROLE_ADMIN, ROLE_MERCHANT, ROLE_USER } from "../constants/roles.js";
 import { productSchema } from "../lib/schemas/product.js";
-import { validate } from "../middleware/validator.js";
+import validate from "../middleware/validator.js";
 
 
 

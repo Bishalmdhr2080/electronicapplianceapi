@@ -20,21 +20,17 @@ const login = async (req, res) => {
 }
 
 const register = async (req, res) => {
-
-    const data = req.body;
-
-    const token = createJWT(data)
-
-    res.cookie("authToken", token, { maxAge: 86400 * 1000 })
-
-    console.log(token)
-
-
     try {
-        const registeredUser = await authService.register(data)
-        res.json(registeredUser)
+
+        const data = await authService.register(req.body);
+
+        const token = createJWT(data);
+
+        res.cookie("authToken", token, { maxAge: 86400 * 1000 });
+
+        res.json({ ...data, token });
     } catch (error) {
-        res.status(error.status || 500).send(error.message)
+        res.status(error.status || 400).send(error.message);
     }
 }
 

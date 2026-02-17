@@ -2,7 +2,9 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 
 const register = async (data) => {
-    const user = await User.findOne({ $or: [{ email: data?.email }, { phone: data?.phone }] });
+    const user = await User.findOne({
+        $or: [{ email: data?.email }, { phone: data?.phone }]
+    });
 
     if (user) throw {
         status: 409,
@@ -19,9 +21,9 @@ const register = async (data) => {
     const createdUser = await User.create({
         name: data.name,
         email: data.email,
-        password: hashedPassword,
         phone: data.phone,
         address: data.address,
+        password: hashedPassword,
     });
 
     return {

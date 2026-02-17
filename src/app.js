@@ -15,7 +15,8 @@ const app = express();
 
 connectDB();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
 
 app.use(logger)
 

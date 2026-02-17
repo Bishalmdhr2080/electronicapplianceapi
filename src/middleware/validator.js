@@ -1,25 +1,24 @@
-import { ZodError } from "zod";
-
+import z, { ZodError } from "zod";
 
 
 const validate = (schema) => (req, res, next) => {
     try {
-        schema.parse(req.body);
+        const parsed = schema.parse(req.body);
+
+        req.data = parsed;
 
         next();
     } catch (error) {
         if (error instanceof ZodError) {
-            console.log("validate error")
+            const formattedError = z.treeifyError(error);
 
-            res.status(400).json(JSON.parse(error.message))
+            console.error(formattedError);
+
+            res.status(400).json(formattedError);
         }
 
-        next(error)
+        next(error);
     }
-}
+};
 
-
-
-
-
-export { validate }
+export default validate;

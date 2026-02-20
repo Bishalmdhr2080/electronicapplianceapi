@@ -10,125 +10,39 @@ import orderRoute from "./routes/order.route.js";
 import roleBaseAuth from "./middleware/roleBasedAuth.js";
 import userRoute from "./routes/user.route.js";
 import { ROLE_ADMIN } from "./constants/roles.js";
+import multer from "multer";
+import connectCloudinary from "./config/cloudinary.js";
+import uploadFile from "./utils/fileUploader.js";
 
 const app = express();
 
+const upload = multer({ storage: multer.memoryStorage() });
+
 connectDB();
+
+connectCloudinary();
 
 app.use(bodyParser.json());
 
+app.use(logger);
 
-app.use(logger)
-
-app.use("/api/products", productRoute);
+app.use("/api/products", upload.array("images", 5), productRoute);
 
 app.use("/api/orders", orderRoute);
 
-
-app.use("/api/users",
-    auth,
-    roleBaseAuth(ROLE_ADMIN),
-    userRoute);
+app.use("/api/users", auth, upload.single("image"), userRoute);
 
 app.use("/api/auth", authRoute);
 
 app.get("/", (req, res) => {
-    res.json({
-        name: config.name,
-        port: config.port,
-        version: config.version,
-        status: "OK"
-    })
-})
-
-app.listen(5000, () => {
-    console.log("Server is running......");
+  res.json({
+    name: config.name,
+    port: config.port,
+    version: config.version,
+    status: "OK",
+  });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import express from "express";
-// import fs from 'fs';
-// import config from "./config/config.js";
-// import productRoute from "./routes/product.route.js"
-
-
-
-
-// const app = express();
-// app.listen(config.port, () => {
-//     console.log(`Server is running at ${config.port}`)
-// })
-
-
-// // routes
-// app.get("/home", getUserController)
-
-// // controller
-// function getUserController(req, res) {
-//     const userData = getUserServices()
-//     res.json(userData)
-// }
-
-// // services
-// function getUserServices() {
-//     const response = fs.readFileSync("data/data.json", "utf8")
-//     const data = JSON.parse(response);
-//     return data.map((item) => ({ name: item.name, email: item.email, usernaem: item.username }))
-
-// }
-
-// app.use("/", productRoute)
+app.listen(5000, () => {
+  console.log("Server is running......");
+});

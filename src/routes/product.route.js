@@ -6,65 +6,27 @@ import { ROLE_ADMIN, ROLE_MERCHANT, ROLE_USER } from "../constants/roles.js";
 import { productSchema } from "../lib/schemas/product.js";
 import validate from "../middleware/validator.js";
 
-
-
 const router = express.Router();
 
-router.post("/",
-    auth,
-    roleBaseAuth(ROLE_MERCHANT),//(ROLE_MERCHANT,ROLE_ADMIN)
-    validate(productSchema),
-    productController.createProduct)
+router.post(
+  "/",
+  auth,
+  roleBaseAuth(ROLE_MERCHANT), //(ROLE_MERCHANT,ROLE_ADMIN)
+  validate(productSchema),
+  productController.createProduct,
+);
 
 router.get("/", productController.getProducts);
 
 router.get("/:id", productController.getProductById);
 
-router.put("/:id",
-    auth,
-    productController.updateProduct)
+router.put("/:id", auth, productController.updateProduct);
 
-router.delete("/:id",
-    auth,
-    roleBaseAuth(ROLE_ADMIN),
-    productController.deletProductById)
+router.delete(
+  "/:id",
+  auth,
+  roleBaseAuth(ROLE_ADMIN),
+  productController.deletProductById,
+);
 
-
-export default router
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import express from "express";
-// import getProducts from './../controller/product.controller';
-// import { ROLE_ADMIN } from './../constants/roles';
-// const router = express.Router()
-
-// router.get("/api/products", (req, res) => {
-//     res.json(['ram', 'shaym', 'hari'])
-// })
-
-// router.get("/api/products/name", (req, res) => {
-//     res.json(['ram', 'shaym', 'hari', "kancha"])
-// })
-
-
-
-// export default router;
+export default router;

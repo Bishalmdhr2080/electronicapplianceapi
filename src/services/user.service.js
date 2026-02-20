@@ -1,45 +1,63 @@
-import User from "../models/User.js"
+import User from "../models/User.js";
+import uploadFile from "../utils/fileUploader.js";
 
 const createUser = async (data) => {
-    if (!data) throw {
-        message: "User not found",
+  if (!data)
+    throw {
+      message: "User not found",
 
-        status: 401,
-    }
-    return await User.create(data)
-}
+      status: 401,
+    };
+  return await User.create(data);
+};
 
 const getUser = async () => {
-    const user = await User.find()
+  const user = await User.find();
 
-    if (!user) throw {
-        status: 404,
+  if (!user)
+    throw {
+      status: 404,
 
-        message: "USER not found"
-    }
+      message: "USER not found",
+    };
 
-    return user
-}
+  return user;
+};
 
 const getUserById = async (id) => {
-    const user = await User.findById(id);
-    if (!user) throw {
-        message: "product not found",
+  const user = await User.findById(id);
+  if (!user)
+    throw {
+      message: "product not found",
 
-        status: 404
-    }
-    return user
-}
+      status: 404,
+    };
+  return user;
+};
 
 const deletUserById = async (id) => {
-    await getUserById(id)
-    await User.findByIdAndDelete(id)
-}
+  await getUserById(id);
+  await User.findByIdAndDelete(id);
+};
 
 const updateUserById = async (id, data) => {
-    await getUserById(id)
-    return await User.findByIdAndUpdate(id, data, { new: true })
-}
+  await getUserById(id);
+  return await User.findByIdAndUpdate(id, data, { new: true });
+};
 
+const updateProfileImage = async (id, file) => {
+  const uploadedFile = await uploadFile([file]);
 
-export default { createUser, getUser, getUserById, updateUserById, deletUserById };
+  return await User.findByIdAndUpdate(id, {
+    profileImageUrl: uploadedFile[0].url,
+  },{new:true});
+};
+
+export default {
+  createUser,
+  getUser,
+  getUserById,
+  updateUserById,
+  deletUserById,
+  updateProfileImage,
+};

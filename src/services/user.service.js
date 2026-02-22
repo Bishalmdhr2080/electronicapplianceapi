@@ -48,9 +48,13 @@ const updateUserById = async (id, data) => {
 const updateProfileImage = async (id, file) => {
   const uploadedFile = await uploadFile([file]);
 
-  return await User.findByIdAndUpdate(id, {
-    profileImageUrl: uploadedFile[0].url,
-  },{new:true});
+  return await User.findByIdAndUpdate(
+    id,
+    {
+      profileImageUrl: uploadedFile[0].url,
+    },
+    { new: true },
+  );
 };
 
 export default {

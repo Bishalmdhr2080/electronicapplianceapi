@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import ResetPassword from "../models/ResetPassword.js";
+import config from "../config/config.js";
+import sendEmail from "../utils/email.js";
 
 const register = async (data) => {
   const user = await User.findOne({
@@ -84,6 +86,27 @@ const forgetPassword = async (email) => {
   });
 
   const resetPasswordLink = `${config.appUrl}/reset-password?userId=${user._id}&token=${token}`;
+
+  sendEmail(email, {
+    subject: "Reset password link",
+    html: `
+      <div style="padding: 16px; font-family: sans-serif">
+        <h1>Please click the link to reset your password.</h1>
+        <a
+          href="${resetPasswordLink}"
+          style="
+            background-color: dodgerblue;
+            color: white;
+            text-decoration: none;
+            padding: 10px 32px;
+            border-radius: 8px;
+          "
+        >
+          Reset password
+        </a>
+      </div>
+    `,
+  });
 
   return { message: "reset password link send sucessfull" };
 };

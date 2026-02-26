@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/", validate(userSchema), userController.createUser);
 
-router.get("/", roleBaseAuth(ROLE_ADMIN), userController.getUser);
+router.get("/", roleBaseAuth(ROLE_ADMIN), userController.getUsers);
 
 router.get("/:id", userController.getUserById);
 
@@ -17,6 +17,6 @@ router.put("/:id", userController.updateUserById);
 
 router.delete("/:id", roleBaseAuth(ROLE_ADMIN), userController.deletUserById);
 
-router.patch("/profile-image",userController.updateProfileImage);
+router.patch("/profile-image", userController.updateProfileImage);
 
 export default router;

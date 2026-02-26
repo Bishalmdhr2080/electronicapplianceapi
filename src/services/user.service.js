@@ -11,17 +11,16 @@ const createUser = async (data) => {
   return await User.create(data);
 };
 
-const getUser = async () => {
-  const user = await User.find();
+const getUsers = async (query) => {
+  const { name, limit, offset } = query;
 
-  if (!user)
-    throw {
-      status: 404,
+  const sort = query.sort ? JSON.parse(query.sort) : {};
 
-      message: "USER not found",
-    };
+  const filters = {};
 
-  return user;
+  if (name) filters.name = { $regex: name, $options: "i" };
+
+  return await User.find(filters).sort(sort).limit(limit).skip(offset);
 };
 
 const getUserById = async (id) => {
@@ -59,7 +58,7 @@ const updateProfileImage = async (id, file) => {
 
 export default {
   createUser,
-  getUser,
+  getUsers,
   getUserById,
   updateUserById,
   deletUserById,

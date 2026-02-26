@@ -11,11 +11,12 @@ const createUser = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+const getUsers = async (req, res) => {
+  const query = req.query;
   try {
-    const getUser = await userService.getUser();
+    const getUsers = await userService.getUsers(query);
 
-    res.status(201).send(getUser);
+    res.status(201).send(getUsers);
   } catch (error) {
     res.status(error.status || 500).send(error?.message);
   }
@@ -71,7 +72,7 @@ const updateProfileImage = async (req, res) => {
 
 export default {
   createUser,
-  getUser,
+  getUsers,
   getUserById,
   updateUserById,
   deletUserById,

@@ -52,6 +52,11 @@ const login = async (data) => {
     err.status = 401;
     throw err;
   }
+  if (!user.isActive)
+    throw {
+      status: 400,
+      message: "User is deactive",
+    };
 
   const isPasswordCorrect = await bcrypt.compare(data.password, user.password);
 

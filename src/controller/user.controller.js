@@ -34,11 +34,25 @@ const getUserById = async (req, res) => {
   }
 };
 
+const getLoggedInUser = async (req, res) => {
+  const id = req.user._id;
+  console.log(id);
+
+  try {
+    const data = await userService.getLoggedInUser(id);
+
+    res.json(data);
+  } catch (error) {
+    res.status(error.status || 500).send(error?.message);
+  }
+};
+
 const updateUserById = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
+  const authUser = req.user; //req.user is fetch from auth
   try {
-    const updatedUser = await userService.updateUserById(id, data);
+    const updatedUser = await userService.updateUserById(id, data, authUser);
 
     res.status(201).json({
       message: "User updated ",
@@ -70,6 +84,18 @@ const updateProfileImage = async (req, res) => {
   }
 };
 
+const updateUserRoles = async (req, res) => {
+  try {
+    const data = await userService.updateUserRoles(
+      req.params.id,
+      req.body.roles,
+    );
+    res.status(201).send(data);
+  } catch (error) {
+    res.status(error.status || 500).send(error?.error);
+  }
+};
+
 export default {
   createUser,
   getUsers,
@@ -77,4 +103,6 @@ export default {
   updateUserById,
   deletUserById,
   updateProfileImage,
+  getLoggedInUser,
+  updateUserRoles,
 };

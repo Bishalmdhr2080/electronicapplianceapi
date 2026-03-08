@@ -15,6 +15,7 @@ const createOrder = async (req, res) => {
 const getOrders = async (req, res) => {
   try {
     const data = await orderService.getOrders();
+    console.log(data);
     res.json(data);
   } catch (error) {
     res.status(400).send(error?.message);
@@ -37,6 +38,16 @@ const getOrderById = async (req, res) => {
     res.status(201).json(data);
   } catch (error) {
     res.status(error.status || 40).send(error?.message);
+  }
+};
+
+const getOrdersByMerchant = async (req, res) => {
+  try {
+    const data = await orderService.getOrdersByMerchant(req.user._id);
+    console.log(req.user._id);
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(error.status || 400).send(error?.message);
   }
 };
 
@@ -119,4 +130,5 @@ export default {
   orderPaymentViaKhalti,
   comfirmOrderPayment,
   orderPaymentViaCash,
+  getOrdersByMerchant,
 };

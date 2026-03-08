@@ -1,3 +1,5 @@
+import crypto from "crypto";
+import mongoose from "mongoose";
 import {
   ORDER_STATUS_CANCELLED,
   ORDER_STATUS_CONFIRMED,
@@ -5,7 +7,6 @@ import {
 import { ROLE_ADMIN } from "../constants/roles.js";
 import Order from "../models/Order.js";
 import Payment from "../models/Payment.js";
-import crypto from "crypto";
 import { paymentViaKhalti } from "../utils/payment.js";
 
 const createOrder = async (data, userId) => {
@@ -119,6 +120,45 @@ const comfirmOrderPayment = async (id, status) => {
   );
 };
 
+const getOrdersByMerchant = async (merchantId) => {
+  console.log(merchantId);
+  return await Order.aggregate([
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderItems.product",
+        foreignField: "_id",
+        as: "orderedProducts",
+      },
+    },
+    { $unwind: "$orderedProducts" },
+
+    {
+      $match: {
+
+        "orderedProducts.createdBy": new mongoose.Types.ObjectId(merchantId)
+      },
+    },
+    {
+      $project:{
+        orderNumber:1,
+        status:1,
+        totalPrice:1,
+        shippingAddress:1,
+        user:1,
+        "orderedProducts.name":1,
+        "orderedProducts.price":1,
+        "orderedProducts.brand":1,
+        "orderedProducts.category":1,
+        "orderedProducts.imageUrls":1,
+
+
+
+      }
+    }
+  ]);
+};
+
 export default {
   createOrder,
   getOrders,
@@ -130,4 +170,5 @@ export default {
   orderPaymentViaKhalti,
   comfirmOrderPayment,
   orderPaymentViaCash,
+  getOrdersByMerchant,
 };

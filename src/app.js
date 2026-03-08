@@ -28,7 +28,7 @@ app.use(logger);
 
 app.use("/api/products", upload.array("images", 5), productRoute);
 
-app.use("/api/orders", orderRoute);
+app.use("/api/orders", auth, orderRoute);
 
 app.use("/api/users", auth, upload.single("image"), userRoute);
 

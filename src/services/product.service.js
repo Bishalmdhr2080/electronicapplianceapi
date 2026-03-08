@@ -2,7 +2,7 @@ import Product from "../models/Product.js";
 import uploadFile from "../utils/fileUploader.js";
 
 const getProducts = async (query) => {
-  const { name, brand, category, min, max, limit, offset } = query;
+  const { name, brand, category, min, max, limit, offset, createdBy } = query;
 
   const sort = query.sort ? JSON.parse(query.sort) : {};
 
@@ -13,6 +13,7 @@ const getProducts = async (query) => {
   if (brand) filter.brand = { $in: brand.split(",") }; //match items for array
   if (min) filter.price = { $gte: min };
   if (max) filter.price = { ...filter.price, $lte: max };
+  if (createdBy) filter.createdBy = createdBy;
 
   const product = await Product.find(filter)
     .sort(sort)
@@ -67,6 +68,8 @@ const createProduct = async (data, files, userId) => {
     };
   return await Product.create({ ...data, imageUrls, createdBy: userId });
 };
+
+
 
 export default {
   getProducts,

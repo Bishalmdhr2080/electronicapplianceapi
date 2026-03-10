@@ -135,27 +135,23 @@ const getOrdersByMerchant = async (merchantId) => {
 
     {
       $match: {
-
-        "orderedProducts.createdBy": new mongoose.Types.ObjectId(merchantId)
+        "orderedProducts.createdBy": new mongoose.Types.ObjectId(merchantId),
       },
     },
     {
-      $project:{
-        orderNumber:1,
-        status:1,
-        totalPrice:1,
-        shippingAddress:1,
-        user:1,
-        "orderedProducts.name":1,
-        "orderedProducts.price":1,
-        "orderedProducts.brand":1,
-        "orderedProducts.category":1,
-        "orderedProducts.imageUrls":1,
-
-
-
-      }
-    }
+      $project: {
+        orderNumber: 1,
+        status: 1,
+        totalPrice: 1,
+        shippingAddress: 1,
+        user: 1,
+        "orderedProducts.name": 1,
+        "orderedProducts.price": 1,
+        "orderedProducts.brand": 1,
+        "orderedProducts.category": 1,
+        "orderedProducts.imageUrls": 1,
+      },
+    },
   ]);
 };
 

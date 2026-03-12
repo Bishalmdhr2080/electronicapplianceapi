@@ -3,7 +3,7 @@ import { verifyJWT } from "../utils/jwts.js";
 const auth = async (req, res, next) => {
     const cookie = await req.headers.cookie
 
-    if (!cookie) return res.status(401).send("usernot autheniticated no cookie")
+    if (!cookie) return res.status(401).send("user not autheniticated no cookie")
 
     const token = cookie.split("=")[1];
 

@@ -23,6 +23,8 @@ const config = {
   },
 
   emailApiKey: process.env.EMAIL_API_KEY || "",
+
+  geminiApiKey: process.env.GEMINI_API_KEY || "",
 };
 
 export default config;

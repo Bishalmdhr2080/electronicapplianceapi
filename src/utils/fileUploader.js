@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from "cloudinary";
-import { promise } from "zod";
 
 const CLOUDINARY_FOLDER = "ecommerce";
 

@@ -1,4 +1,6 @@
+import { PRODUCT_DESCRIPTION_PROMPT } from "../constants/prompt.js";
 import Product from "../models/Product.js";
+import promptAI from "../utils/ai.js";
 import uploadFile from "../utils/fileUploader.js";
 
 const getProducts = async (query) => {
@@ -59,17 +61,26 @@ const updateProduct = async (id, data, files) => {
 
 const createProduct = async (data, files, userId) => {
   const uploadedFiles = await uploadFile(files);
+
   const imageUrls = uploadedFiles.map((item) => item.url);
+
+  const promptMessage = PRODUCT_DESCRIPTION_PROMPT.replace("%s",data.name)
+  .replace("%s",data.brand)
+  .replace("%s",data.category)
+  const description = data.description ?? (await promptAI(promptMessage));
 
   if (!data)
     throw {
       message: "Product not found",
       status: 404,
     };
-  return await Product.create({ ...data, imageUrls, createdBy: userId });
+  return await Product.create({
+    ...data,
+    description,
+    imageUrls,
+    createdBy: userId,
+  });
 };
-
-
 
 export default {
   getProducts,

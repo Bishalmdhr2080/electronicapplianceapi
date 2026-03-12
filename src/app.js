@@ -7,12 +7,9 @@ import express from "express";
 import logger from "./middleware/logger.js";
 import productRoute from "./routes/product.route.js";
 import orderRoute from "./routes/order.route.js";
-import roleBaseAuth from "./middleware/roleBasedAuth.js";
 import userRoute from "./routes/user.route.js";
-import { ROLE_ADMIN } from "./constants/roles.js";
 import multer from "multer";
 import connectCloudinary from "./config/cloudinary.js";
-import uploadFile from "./utils/fileUploader.js";
 
 const app = express();
 
